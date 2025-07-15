@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizer Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color:rgb(148, 225, 152);
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(46, 133, 62, 0.7), rgba(45, 119, 79, 0.7)), url('/static/a4.jpg') fixed;
+        }
+        h1 {
+            color: white;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        form {
+            height: 500px;
+            width: 400px;
+            display: inline-block;
+            margin-top: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 10px 20px ;
+            border: 1px solid #1e1a1a;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>FERTILIZER RECOMMENDATION SYSTEM</h1>
+
+    <form method="post" action="/predict">
+        <label for="Nitrogen">Nitrogen</label><br>
+        <input type="text" id="Nitrogen" name="Nitrogen" placeholder="Enter Nitrogen value" required><br><br>
+
+        <label for="Potassium">Potassium</label><br>
+        <input type="text" id="Potassium" name="Potassium" placeholder="Enter Potassium value" required><br><br>
+
+        <label for="Phosphorous">Phosphorous</label><br>
+        <input type="text" id="Phosphorous" name="Phosphorous" placeholder="Enter Phosphorous value" required><br><br>
+
+        <input type="submit" value="Predict"><br><br>
+
+        {% if result %}
+        <p><strong>Recommended Fertilizer:</strong> {{ result }}</p>
+        {% endif %}
+    </form>
+
+</body>
+</html>

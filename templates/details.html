@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizer Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(200, 255, 200, 0.9)), url('../static/fertilizer-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        header, footer {
+            background-color: #004d00;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        h1{
+            color:white;
+            font-weight: bold;}
+        .chart {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .fertilizer-card {
+            width: 200px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .fertilizer-card:hover {
+            transform: scale(1.1);
+        }
+        .fertilizer-card img {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px;
+        }
+        .details-container {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+        }
+        .details-container h2 {
+            color: #004d00;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #004d00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #006600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FERTILIZE DETAILS</h1>
+    </header>
+
+    <div class="chart" id="fertilizer-chart">
+        <!-- Fertilizer cards will be dynamically generated -->
+    </div>
+
+    <div class="details-container" id="fertilizer-details">
+        <h2 id="fertilizer-name"></h2>
+        <p id="fertilizer-description"></p>
+        <p id="fertilizer-advantages"></p>
+        <button class="back-button" onclick="showChart()">Back</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Fertilizer Recommendation System</p>
+    </footer>
+
+    <script>
+        // Fertilizer data from app.py
+        const fertilizers = [
+            { name: "10:10:10 NPK", img: "/static/b0.png", description: "Balanced fertilizer for general use.", advantages: "Promotes overall plant growth." },
+            { name: "10:26:26 NPK", img: "/static/b1.png", description: "High phosphorus content for root development.", advantages: "Ideal for early plant growth." },
+            { name: "12:32:16 NPK", img: "/static/b3.png", description: "Balanced fertilizer with higher phosphorus.", advantages: "Improves flowering and fruiting." },
+            { name: "18:46:00 NPK", img: "/static/b2.png", description: "High phosphorus fertilizer.", advantages: "Boosts root and seed development." },
+            { name: "19:19:19 NPK", img: "/static/b2.png", description: "Balanced fertilizer for all stages.", advantages: "Supports overall plant health." },
+            { name: "20:20:20 NPK", img: "/static/b2.png", description: "General-purpose fertilizer.", advantages: "Enhances plant growth and yield." },
+            { name: "Ammonium Sulphate", img: "/static/b8.png", description: "Nitrogen-rich fertilizer.", advantages: "Improves leaf growth." },
+            { name: "Chilated Micronutrient", img: "/static/b9.png", description: "Micronutrient supplement.", advantages: "Corrects micronutrient deficiencies." },
+            { name: "DAP", img: "/static/b10.png", description: "High phosphorus content.", advantages: "Promotes root development." },
+            { name: "Ferrous Sulphate", img: "/static/b11.png", description: "Iron-rich fertilizer.", advantages: "Corrects iron deficiencies." },
+            { name: "Hydrated Lime", img: "/static/b12.png", description: "Soil pH adjuster.", advantages: "Neutralizes acidic soils." },
+            { name: "MOP", img: "/static/b13.png", description: "Potassium-rich fertilizer.", advantages: "Improves fruit quality." },
+            { name: "SSP", img: "/static/b14.png", description: "Phosphorus-rich fertilizer.", advantages: "Enhances flowering and root strength." },
+            { name: "Sulphur", img: "/static/b15.png", description: "Sulphur supplement.", advantages: "Improves protein synthesis." },
+            { name: "UREA", img: "/static/b16.png", description: "High nitrogen content.", advantages: "Boosts vegetative growth." },
+            { name: "White Potash", img: "/static/b18.png", description: "Potassium-rich fertilizer.", advantages: "Improves plant resistance." }
+            ,
+            { name: "13:32:26 NPK", img: "/static/b17.png", description: "High phosphorus content for root development.", advantages: "Ideal for early plant growth." }
+        ];
+
+        // Generate fertilizer cards
+        const chart = document.getElementById('fertilizer-chart');
+        fertilizers.forEach(fertilizer => {
+            const card = document.createElement('div');
+            card.className = 'fertilizer-card';
+            card.innerHTML = `
+                <img src="${fertilizer.img}" alt="${fertilizer.name}">
+                <h3>${fertilizer.name}</h3>
+                <p>${fertilizer.description}</p>
+            `;
+            card.onclick = () => showDetails(fertilizer);
+            chart.appendChild(card);
+        });
+
+        // Show details of a fertilizer
+        function showDetails(fertilizer) {
+            document.getElementById('fertilizer-chart').style.display = 'none';
+            const details = document.getElementById('fertilizer-details');
+            details.style.display = 'block';
+            document.getElementById('fertilizer-name').textContent = fertilizer.name;
+            document.getElementById('fertilizer-description').textContent = fertilizer.description;
+            document.getElementById('fertilizer-advantages').textContent = fertilizer.advantages;
+        }
+
+        // Show the chart again
+        function showChart() {
+            document.getElementById('fertilizer-details').style.display = 'none';
+            document.getElementById('fertilizer-chart').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
