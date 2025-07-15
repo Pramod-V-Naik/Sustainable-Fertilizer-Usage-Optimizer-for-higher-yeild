@@ -1,1 +1,1 @@
-# Sustainable-Fertilizer-Usage-Optimizer-for-higher-yeild
+# Sustainable-Fertilizer-Usage-Optimizer-for-Higher-Yeild
